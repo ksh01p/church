@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>교회 오시는 길</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        .banner {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 1em 0;
+        }
+        .container {
+            display: flex;
+            padding: 20px;
+        }
+        .details {
+            flex: 2;
+            padding: 20px;
+        }
+        .map {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+        }
+        .map iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+        }
+        .image img {
+            max-width: 100%;
+            height: auto;
+        }
+        h2 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="banner">
+    <h1>교회 오시는 길</h1>
+</div>
+
+<div class="container">
+    <div class="details">
+        <h2>주소</h2>
+        <p>서울특별시 예시구 예시동 123-45</p>
+
+        <h2>오시는 방법</h2>
+        <ul>
+            <li>지하철: 1호선 예시역 2번 출구로 나오셔서 도보 10분</li>
+            <li>버스: 100번, 200번, 300번 버스 이용 후 예시교회 정류장에서 하차</li>
+            <li>자동차: 주변 유료 주차장 이용 가능</li>
+        </ul>
+    </div>
+    <div class="map">
+        <h2>지도</h2>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345095427!2d144.95373531568255!3d-37.81627997975145!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f2b8f57%3A0xb21c450c3f9177c7!2sMelbourne%20Central!5e0!3m2!1sen!2sau!4v1610029504527!5m2!1sen!2sau"
+                allowfullscreen=""
+                loading="lazy"></iframe>
+    </div>
+</div>
+
+</body>
+</html>

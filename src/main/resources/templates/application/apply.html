@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>새가족 등록하기</title>
+    <title>양육 신청하기</title>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <style>
         body {
@@ -63,16 +63,16 @@
 </div>
 
 <div class="form-group-inline">
-    <label for="create_welcome_id">순번</label>
-    <input type="number" id="create_welcome_id" required/>
+    <label for="create_apply_id">순번</label>
+    <input type="number" id="create_apply_id" required/>
 
-    <label for="create_welcome_name">이름</label>
-    <input type="text" id="create_welcome_name" required/>
+    <label for="create_apply_name">이름</label>
+    <input type="text" id="create_apply_name" required/>
 </div>
 
 <div class="form-group">
-    <label for="create_welcome_gender">성별</label>
-    <select id="create_welcome_gender" required>
+    <label for="create_apply_gender">성별</label>
+    <select id="create_apply_gender" required>
         <option value="MALE">남성</option>
         <option value="FEMALE">여성</option>
         <option value="OTHER">기타</option>
@@ -80,31 +80,31 @@
 </div>
 
 <div class="form-group">
-    <label for="create_welcome_email">이메일</label>
-    <input type="email" id="create_welcome_email" required/>
+    <label for="create_apply_email">이메일</label>
+    <input type="email" id="create_apply_email" required/>
 </div>
 
 <div class="form-group">
-    <label for="create_welcome_phone">전화번호</label>
-    <input type="tel" id="create_welcome_phone" required/>
+    <label for="create_apply_phone">전화번호</label>
+    <input type="tel" id="create_apply_phone" required/>
 </div>
 
 <div class="form-group">
-    <label for="create_welcome_address">주소</label>
-    <input type="text" id="create_welcome_address" required/>
+    <label for="create_apply_address">주소</label>
+    <input type="text" id="create_apply_address" required/>
 </div>
 
 <div class="form-group">
-    <label for="create_welcome_baptismType">유아/성인 세례</label>
-    <select id="create_welcome_baptismType" required>
+    <label for="create_apply_baptismType">유아/성인 세례</label>
+    <select id="create_apply_baptismType" required>
         <option value="INFANT">유아 세례</option>
         <option value="ADULT">성인 세례</option>
     </select>
 </div>
 
 <div class="form-group">
-    <label for="create_welcome_marriageType">결혼 여부</label>
-    <select id="create_welcome_marriageType" required>
+    <label for="create_apply_marriageType">결혼 여부</label>
+    <select id="create_apply_marriageType" required>
         <option value="YES">결혼함</option>
         <option value="NO">결혼하지 않음</option>
     </select>
@@ -130,16 +130,11 @@
 <button id="add_family_member">가족 추가</button>
 
 <div class="form-group">
-    <label for="create_welcome_content">특이사항</label>
-    <textarea id="create_welcome_content" class="large-input" placeholder="특이사항"></textarea>
-</div>
-<div class="form-group1">
-    <label for="create_welcome_agreement">개인정보 제공 동의</label>
-    <input type="checkbox" id="create_welcome_agreement" class="large-input" placeholder="특이사항" />
+    <label for="create_apply_content">특이사항</label>
+    <textarea id="create_apply_content" class="large-input" placeholder="특이사항"></textarea>
 </div>
 
-<button onclick="create_welcome()">저장</button>
-
+<button onclick="create_apply()">저장</button>
 
 <script>
     let familyMemberCount = 1;
@@ -167,16 +162,7 @@
         }
     });
 
-
-
-    function create_welcome() {
-
-        let checked = $("#create_welcome_agreement").prop("checked");
-        if(!checked){
-            alert("plz agree!");
-            return false;
-        }
-
+    function create_apply() {
         const familyMembers = [];
         for (let i = 1; i <= familyMemberCount; i++) {
             familyMembers.push({
@@ -186,28 +172,29 @@
         }
 
         $.ajax({
-            url: "/api/welcome/create",
+            url: "/api/application/create",
             type: "POST",
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify({
-                id: $("#create_welcome_id").val(),
-                name: $("#create_welcome_name").val(),
-                gender: $("#create_welcome_gender").val(),
-                email: $("#create_welcome_email").val(),
-                phone: $("#create_welcome_phone").val(),
-                address: $("#create_welcome_address").val(),
-                baptismType: $("#create_welcome_baptismType").val(),
-                marriageType: $("#create_welcome_marriageType").val(),
+                id: $("#create_apply_id").val(),
+                name: $("#create_apply_name").val(),
+                gender: $("#create_apply_gender").val(),
+                email: $("#create_apply_email").val(),
+                phone: $("#create_apply_phone").val(),
+                address: $("#create_apply_address").val(),
+                baptismType: $("#create_apply_baptismType").val(),
+                marriageType: $("#create_apply_marriageType").val(),
                 familyMembers: familyMembers,
-                content: $("#create_welcome_content").val()
+                content: $("#create_apply_content").val()
             }),
             cache: false,
             success: (obj_data, status, xhr) => {
-                alert(JSON.stringify(obj_data));
+                alert("신청이 완료되었습니다.");
+                // 이후 페이지 전환이나 초기화 등의 처리 가능
             },
             error: (obj_data, status, xhr) => {
-                alert("error!!");
-                alert(JSON.stringify(obj_data));
+                alert("에러가 발생했습니다.");
+                console.error(obj_data);
             }
         });
     }

@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Welcome {
+public class Application {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     Integer id;
@@ -33,10 +33,9 @@ public class Welcome {
     private MarriageType marriageType;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "welcome_id")
+    @JoinColumn(name ="application_id")
     private List<FamilyMember> familyMembers = new ArrayList<>();
 
-    // Add a method to add family members
     public void addFamilyMember(FamilyMember member) {
         if (familyMembers.size() < 6) {
             familyMembers.add(member);
@@ -45,7 +44,6 @@ public class Welcome {
         }
     }
 
-    // FamilyMember class to represent each family member
     @Getter
     @Setter
     @Entity

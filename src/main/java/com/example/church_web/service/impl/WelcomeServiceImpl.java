@@ -5,6 +5,8 @@ import com.example.church_web.repository.WelcomeRepository;
 import com.example.church_web.service.WelcomeService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,9 +14,8 @@ import java.util.Map;
 public class WelcomeServiceImpl implements WelcomeService {
 
     private final WelcomeRepository welcomeRepository;
-    public WelcomeServiceImpl(
-            WelcomeRepository welcomeRepository
-    ) {
+
+    public WelcomeServiceImpl(WelcomeRepository welcomeRepository) {
         this.welcomeRepository = welcomeRepository;
     }
 
@@ -22,36 +23,86 @@ public class WelcomeServiceImpl implements WelcomeService {
     public Map<String, Object> createWelcome(Map<String, Object> params) {
         System.out.println("createWelcome");
         Welcome welcome = new Welcome();
-        welcome.setId(Integer.parseInt(params.get("id") + ""));
-        welcome.setTitle(params.get("title").toString());
-        welcome.setContent(params.get("content").toString());
-        welcome.setAuthor(params.get("author").toString());
+        welcome.setId(Integer.parseInt(params.get("id").toString()));
+        welcome.setName(params.get("name").toString());
+        welcome.setGender(params.get("gender").toString());
+        welcome.setEmail(params.get("email").toString());
+        welcome.setPhone(params.get("phone").toString());
+        welcome.setAddress(params.get("address").toString());
+        welcome.setBaptismType(Welcome.BaptismType.valueOf(params.get("baptismType").toString()));
+        welcome.setMarriageType(Welcome.MarriageType.valueOf(params.get("marriageType").toString()));
+
+        // Handling family members
+        List<Welcome.FamilyMember> familyMembers = new ArrayList<>();
+        List<Map<String, String>> membersParams = (List<Map<String, String>>) params.get("familyMembers");
+        if (membersParams != null) {
+            for (Map<String, String> memberParams : membersParams) {
+                Welcome.FamilyMember familyMember = new Welcome.FamilyMember();
+                familyMember.setName(memberParams.get("name"));
+                familyMember.setRelationship(Welcome.FamilyMember.Relationship.valueOf(memberParams.get("relationship")));
+                familyMembers.add(familyMember);
+            }
+        }
+        welcome.setFamilyMembers(familyMembers);
+
         welcomeRepository.save(welcome);
-        return null;
+        return new HashMap<>() {{
+            put("status", "success");
+            put("message", "Welcome created successfully.");
+        }};
     }
+
     @Override
     public Map<String, Object> updateWelcome(Map<String, Object> params) {
         System.out.println("updateWelcome");
-        Welcome welcome = welcomeRepository.findById(params.get("id") + "").orElseThrow(() -> new RuntimeException(""));
+        Welcome welcome = welcomeRepository.findById(params.get("id").toString())
+                .orElseThrow(() -> new RuntimeException("Welcome not found"));
 
-        welcome.setTitle(params.get("title").toString());
-        welcome.setContent(params.get("content").toString());
-        welcome.setAuthor(params.get("author").toString());
+        welcome.setName(params.get("name").toString());
+        welcome.setGender(params.get("gender").toString());
+        welcome.setEmail(params.get("email").toString());
+        welcome.setPhone(params.get("phone").toString());
+        welcome.setAddress(params.get("address").toString());
+        welcome.setBaptismType(Welcome.BaptismType.valueOf(params.get("baptismType").toString()));
+        welcome.setMarriageType(Welcome.MarriageType.valueOf(params.get("marriageType").toString()));
+
+        // Update family members
+        List<Welcome.FamilyMember> familyMembers = new ArrayList<>();
+        List<Map<String, String>> membersParams = (List<Map<String, String>>) params.get("familyMembers");
+        if (membersParams != null) {
+            for (Map<String, String> memberParams : membersParams) {
+                Welcome.FamilyMember familyMember = new Welcome.FamilyMember();
+                familyMember.setName(memberParams.get("name"));
+                familyMember.setRelationship(Welcome.FamilyMember.Relationship.valueOf(memberParams.get("relationship")));
+                familyMembers.add(familyMember);
+            }
+        }
+        welcome.setFamilyMembers(familyMembers);
+
         welcomeRepository.save(welcome);
-        return null;
+        return new HashMap<>() {{
+            put("status", "success");
+            put("message", "Welcome updated successfully.");
+        }};
     }
+
     @Override
     public List<Welcome> listWelcome() {
         return welcomeRepository.findAll();
     }
+
     @Override
     public Welcome detailWelcome(Integer id) {
-        return welcomeRepository.findById(Integer.toString(id)).orElseThrow(() -> new RuntimeException(""));
+        return welcomeRepository.findById(id + "").orElseThrow(() -> new RuntimeException("Welcome not found"));
     }
+
     @Override
     public Map<String, Object> deleteWelcome(Integer id) {
-        Welcome welcome = welcomeRepository.findById(Integer.toString(id)).orElseThrow(() -> new RuntimeException(""));
+        Welcome welcome = welcomeRepository.findById(id + "").orElseThrow(() -> new RuntimeException("Welcome not found"));
         welcomeRepository.delete(welcome);
-        return null;
+        return new HashMap<>() {{
+            put("status", "success");
+            put("message", "Welcome deleted successfully.");
+        }};
     }
 }
