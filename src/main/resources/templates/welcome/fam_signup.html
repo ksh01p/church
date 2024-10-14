@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>새가족 등록하기</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <link rel="stylesheet" href="../../static/style1.css">
+</head>
+<body>
+<div id="div_id" class="div_abcde">
+    새가족 등록하기
+</div>
+
+<div class="form-group-inline">
+    <label for="create_welcome_id">순번</label>
+    <input type="number" id="create_welcome_id" required/>
+
+    <label for="create_welcome_author">이름</label>
+    <input type="text" id="create_welcome_author" required/>
+</div>
+
+<div class="form-group">
+    <label for="create_welcome_gender">성별</label>
+    <select id="create_welcome_gender" required>
+        <option value="MALE">남성</option>
+        <option value="FEMALE">여성</option>
+        <option value="OTHER">기타</option>
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="create_welcome_email">이메일</label>
+    <input type="email" id="create_welcome_email" required/>
+</div>
+
+<div class="form-group">
+    <label for="create_welcome_phone">전화번호</label>
+    <input type="tel" id="create_welcome_phone" required/>
+</div>
+
+<div class="form-group">
+    <label for="create_welcome_address">주소</label>
+    <input type="text" id="create_welcome_address" required/>
+</div>
+
+<div class="form-group">
+    <label for="create_welcome_baptismType">유아/성인 세례</label>
+    <select id="create_welcome_baptismType" required>
+        <option value="INFANT">유아 세례</option>
+        <option value="ADULT">성인 세례</option>
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="create_welcome_marriageType">결혼 여부</label>
+    <select id="create_welcome_marriageType" required>
+        <option value="YES">결혼함</option>
+        <option value="NO">결혼하지 않음</option>
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="create_welcome_relationship">관계</label>
+    <select id="create_welcome_relationship" required>
+        <option value="PARENT">부모</option>
+        <option value="SIBLING">형제/자매</option>
+        <option value="CHILD">자녀</option>
+        <option value="SPOUSE">배우자</option>
+        <option value="GRANDPARENT">조부모</option>
+        <option value="OTHER">기타</option>
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="create_welcome_content">특이사항</label>
+    <textarea id="create_welcome_content" class="large-input" placeholder="특이사항"></textarea>
+</div>
+
+<button onclick="create_welcome()">저장</button>
+<button onclick="change_html()">제목 확인하기</button>
+
+<script>
+    function change_html(){
+        let create_welcome_title = $("#create_welcome_title").val();
+        $("#div_id").html(create_welcome_title);
+    }
+
+    function create_welcome(){
+        $.ajax({
+            url: "/api/welcome/create",
+            type: "POST", // POST로 수정
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({
+                id: $("#create_welcome_id").val(),
+                name: $("#create_welcome_author").val(),
+                gender: $("#create_welcome_gender").val(),
+                email: $("#create_welcome_email").val(),
+                phone: $("#create_welcome_phone").val(),
+                address: $("#create_welcome_address").val(),
+                baptismType: $("#create_welcome_baptismType").val(),
+                marriageType: $("#create_welcome_marriageType").val(),
+                relationship: $("#create_welcome_relationship").val(),
+                content: $("#create_welcome_content").val()
+            }),
+            cache: false,
+            success: (obj_data, status, xhr) => {
+                alert(JSON.stringify(obj_data));
+            },
+            error: (obj_data, status, xhr) => {
+                alert("error!!");
+                alert(JSON.stringify(obj_data));
+            }
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,10 +1,146 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>교회 웹사이트</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="#welcome">환영합니다</a></li>
+            <li><a href="#introduce">소개합니다</a></li>
+            <li><a href="#videos">예배 영상</a></li>
+            <li><a href="#applications">양육 신청</a></li>
+            <li><a href="#missions">선교 상황</a></li>
+        </ul>
+    </nav>
+</header>
 
+<main>
+    <div class="banner">
+        <h1>우리 교회에 오신 것을 환영합니다!</h1>
+        <p>신앙과 공동체의 소중함을 느끼세요.</p>
+    </div>
+
+    <div class="image-slider">
+        <div class="slides">
+            <img src="image1.jpg" alt="슬라이드 이미지 1">
+            <img src="image2.jpg" alt="슬라이드 이미지 2">
+            <img src="image3.jpg" alt="슬라이드 이미지 3">
+            <img src="image4.jpg" alt="슬라이드 이미지 4">
+        </div>
+        <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+        <button class="next" onclick="changeSlide(1)">&#10095;</button>
+    </div>
+</main>
 </body>
 </html>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const links = document.querySelectorAll('nav ul li a');
+        links.forEach(link => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    window.scrollTo({
+                        top: targetSection.offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        let currentIndex = 0;
+        const slides = document.querySelectorAll('.image-slider .slides img');
+
+        function changeSlide(direction) {
+            currentIndex = (currentIndex + direction + slides.length) % slides.length;
+            const offset = -currentIndex * 100;
+            document.querySelector('.slides').style.transform = `translateX(${offset}%)`;
+        }
+
+        // 자동 슬라이드 기능 (원하는 경우 주석 해제)
+        // setInterval(() => changeSlide(1), 3000); // 3초마다 이미지 변경
+    });
+
+
+</script>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    header {
+        background: #333;
+        color: #fff;
+    }
+
+    nav ul {
+        list-style: none;
+        display: flex;
+        justify-content: space-around;
+        padding: 10px 0;
+    }
+
+    nav a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .banner {
+        background: #f0f0f0;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .banner h1 {
+        margin: 0;
+    }
+
+    .banner p {
+        margin: 10px 0 0;
+    }
+
+    .image-slider {
+        position: relative;
+        max-width: 600px;
+        margin: auto;
+        overflow: hidden;
+    }
+
+    .slides {
+        display: flex;
+        transition: transform 0.5s ease;
+    }
+
+    .image-slider img {
+        width: 100%;
+        height: auto;
+    }
+
+    button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(255, 255, 255, 0.7);
+        border: none;
+        cursor: pointer;
+        padding: 10px;
+    }
+
+    .prev {
+        left: 10px;
+    }
+
+    .next {
+        right: 10px;
+    }
+</style>
