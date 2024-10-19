@@ -21,14 +21,16 @@
             display: flex;
             justify-content: space-around;
             padding: 10px 0;
-            position: relative;
+        }
+
+        nav li {
+            position: relative; /* 추가 */
         }
 
         nav a {
             color: #fff;
             text-decoration: none;
-            position: relative;
-            padding: 10px; /* 패딩 추가 */
+            padding: 10px;
         }
 
         .sub-menu {
@@ -46,7 +48,10 @@
             display: block;
             color: #fff;
             padding: 5px 10px;
+            font-size: 14px; /* 글씨 크기 조정 */
+            white-space: nowrap; /* 텍스트를 한 줄로 유지 */
         }
+
 
         .banner {
             background: #f0f0f0;
@@ -99,40 +104,42 @@
     </style>
 </head>
 <body>
+<a href="index.html">
+    <img src="/images/logo.png" alt="교회 로고">
+</a>
 <header>
+
     <nav>
         <ul>
             <li>
                 <a href="/introduction/church">환영합니다</a>
                 <div class="sub-menu">
-                    <a href="=/welcome/introduce">교회 소개</a>
-                    <a href="=/welcome/fam_signup">새가족 등록하기</a>
+                    <a href="/welcome/introduce">교회 소개</a>
+                    <a href="/welcome/fam_signup">새가족 등록하기</a>
                 </div>
             </li>
             <li>
-                <a onclick="alert(1);">소개합니다</a>
+<!--                <a onclick="alert(1);">소개합니다</a>-->
                 <div class="sub-menu">
-                    <a href="=/introduction/pastor">담임 목사님 소개</a>
-                    <a href="=/introduction/church">교회 오시는 길</a>
-<!--                    <a href="/introduction/">예배 소개</a>-->
+                    <a href="/introduction/pastor">담임 목사님 소개</a>
+                    <a href="/introduction/church">교회 오시는 길</a>
                 </div>
             </li>
             <li>
-                <a href="#videos">예배합니다</a>
+                <a href="/worship/videos">예배합니다</a>
                 <div class="sub-menu">
-                    <a href="#dawn-sermon">새벽 설교 영상</a>
-                    <a href="#sunday-sermon">주일 설교 영상</a>
-                    <a href="#meeting-video">집회 영상</a>
+                    <a href="/worship/videos">설교 영상</a>
+
                 </div>
             </li>
             <li>
-                <a href="#applications">양육합니다</a>
+                <a href="/application/apply">양육합니다</a>
                 <div class="sub-menu">
                     <a href="/application/apply">양육 신청</a>
                 </div>
             </li>
             <li>
-                <a href="#hahaha">선교합니다</a>
+                <a href>선교합니다</a>
                 <div class="sub-menu">
                     <a href="#mission-status">선교 현황</a>
                 </div>
@@ -149,17 +156,16 @@
 
     <div class="image-slider">
         <div class="slides">
-            <img src="image1.jpg" alt="슬라이드 이미지 1">
-            <img src="image2.jpg" alt="슬라이드 이미지 2">
-            <img src="image3.jpg" alt="슬라이드 이미지 3">
-            <img src="image4.jpg" alt="슬라이드 이미지 4">
+            <img src="/images/image1.jpg" alt="슬라이드 이미지 1">
+            <img src="/images/image2.jpg" alt="슬라이드 이미지 2">
+            <img src="/images/image3.jpg" alt="슬라이드 이미지 3">
+<!--            <img src="image4.jpg" alt="슬라이드 이미지 4">-->
         </div>
         <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
         <button class="next" onclick="changeSlide(1)">&#10095;</button>
     </div>
 </main>
 
-<div id="hahaha">112233</div>
 
 <script>
     $(document).ready(function() {
@@ -182,7 +188,7 @@
         }
 
         // 자동 슬라이드 기능 (원하는 경우 주석 해제)
-        // setInterval(() => changeSlide(1), 3000); // 3초마다 이미지 변경
+         setInterval(() => changeSlide(1), 3000); // 3초마다 이미지 변경
     });
 </script>
 </body>

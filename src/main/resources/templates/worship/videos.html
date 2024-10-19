@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>주일 영상 게시판</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+</head>
+<body>
+<h1>주일 영상 게시판</h1>
+
+<!-- 영상 업로드 폼 -->
+<div>
+    <h2>새로운 영상 업로드</h2>
+    <label>제목: </label>
+    <input type="text" id="video_title" /><br/>
+    <label>URL: </label>
+    <input type="text" id="video_url" /><br/>
+    <button onclick="upload_video()">업로드</button>
+</div>
+
+<hr/>
+
+<!-- 영상 목록 -->
+<div>
+    <h2>영상 목록</h2>
+    <ul id="video_list"></ul>
+</div>
+
+<script>
+    // 영상 목록 불러오기
+    function load_videos() {
+        $.ajax({
+            url: "/api/worship/list",
+            type: "GET",
+            success: (videos) => {
+                $("#video_list").empty();  // 기존 목록 초기화
+                videos.forEach((video) => {
+                    $("#video_list").append(`
+                            <li>
+                                <a href="sunday.html?id=${video.id}" target="_blank">${video.title}</a>
+                                (업로드 날짜: ${video.uploadDate})
+                            </li>
+                        `);
+                });
+            },
+            error: (xhr, status, error) => {
+                alert("영상 목록을 불러오는 데 실패했습니다.");
+            }
+        });
+    }
+
+    // 영상 업로드
+    function upload_video() {
+        const title = $("#video_title").val();
+        const url = $("#video_url").val();
+
+        $.ajax({
+            url: "/api/worship",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                title: title,
+                url: url
+            }),
+            success: (response) => {
+                alert("영상이 성공적으로 업로드되었습니다!");
+                load_videos();  // 영상 목록 새로고침
+            },
+            error: (xhr, status, error) => {
+                alert("업로드에 실패했습니다.");
+            }
+        });
+    }
+
+    // 페이지 로드 시 영상 목록 불러오기
+    $(document).ready(function() {
+        load_videos();
+    });
+</script>
+</body>
+</html>
