@@ -10,13 +10,12 @@ public class WorshipDto {
     @Getter
     public static class CreateReqDto {
         private String title;
-        private String url;
+        private String vId;
 
-        // Request DTO를 Entity로 변환
         public Worship toEntity() {
             Worship worship = new Worship();
             worship.setTitle(title);
-            worship.setUrl(url);
+            worship.setVId(vId);
             return worship;
         }
     }
@@ -26,7 +25,7 @@ public class WorshipDto {
     public static class UpdateReqDto {
         private Long id;
         private String title;
-        private String url;
+        private String vId;
     }
 
     @Setter
@@ -40,15 +39,6 @@ public class WorshipDto {
     public static class DetailResDto {
         private Long id;
         private String title;
-        private String url;
-        private String uploadDate;
-
-        // Entity를 DTO로 변환
-        public DetailResDto(Worship worship) {
-            this.id = worship.getId();
-            this.title = worship.getTitle();
-            this.url = worship.getUrl();
-            this.uploadDate = worship.getUploadDate().toString();  // Date를 String으로 변환
-        }
+        private String vId;
     }
 }

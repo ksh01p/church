@@ -10,20 +10,18 @@
 <div id="video_url"></div>
 
 <script>
-    // URL에서 id 파라미터 가져오기
     function getQueryParam(param) {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get(param);
     }
 
-    // 영상 상세 정보 불러오기
     function load_video_detail(id) {
         $.ajax({
             url: `/api/worship/detail?id=${id}`,
             type: "GET",
             success: (video) => {
                 $("#video_title").text(video.title);
-                $("#video_url").html(`<iframe width="560" height="315" src="https://www.youtube.com/embed/${id}" frameborder="0" allowfullscreen></iframe>`);
+                $("#video_url").html(`<iframe width="560" height="315" src="https://www.youtube.com/embed/${video.vId}" frameborder="0" allowfullscreen></iframe>`);
             },
             error: (xhr, status, error) => {
                 alert("영상을 불러오는 데 실패했습니다.");

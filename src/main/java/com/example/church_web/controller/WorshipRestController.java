@@ -10,47 +10,43 @@ import java.util.List;
 import java.util.Map;
 
 
-@RestController
 @RequestMapping("/api/worship")
+@RestController
 public class WorshipRestController {
 
     private final WorshipService worshipService;
 
-    @Autowired
     public WorshipRestController(WorshipService worshipService) {
         this.worshipService = worshipService;
     }
 
-
-    // Create (영상 업로드)
     @PostMapping("")
-    public WorshipDto.CreateResDto create(@RequestBody WorshipDto.CreateReqDto param) {
-        return worshipService.saveVideoUrl(param);
+    public WorshipDto.CreateResDto create(@RequestBody WorshipDto.CreateReqDto requestDto) {
+        // 영상 업로드 요청 처리
+        return worshipService.create(requestDto);
     }
 
-    // Update (영상 업데이트)
     @PutMapping("")
-    public void update(@RequestBody WorshipDto.UpdateReqDto param) {
-        worshipService.update(param);
+    public void update(@RequestBody WorshipDto.UpdateReqDto requestDto) {
+        // 영상 업데이트 요청 처리
+        worshipService.update(requestDto);
     }
 
-    // Delete (영상 삭제)
     @DeleteMapping("")
-    public void delete(@RequestParam Long id) {
-        worshipService.delete(id);
+    public void delete(@RequestBody WorshipDto.UpdateReqDto requestDto) {
+        // 영상 삭제 요청 처리
+        worshipService.delete(requestDto.getId());
     }
 
-    // Get Detail (특정 영상 조회)
     @GetMapping("/detail")
     public WorshipDto.DetailResDto detail(@RequestParam Long id) {
+        // 영상 상세 정보 요청 처리
         return worshipService.detail(id);
     }
 
-    // Get List (영상 목록 조회)
     @GetMapping("/list")
     public List<WorshipDto.DetailResDto> list() {
-        return worshipService.getAllVideos();
+        // 모든 영상 리스트 요청 처리
+        return worshipService.list();
     }
-
 }
-

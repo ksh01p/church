@@ -12,6 +12,8 @@ import com.example.church_web.repository.WorshipRepository;
 
 
 @Service
+
+
 public class WorshipServiceImpl implements WorshipService {
 
     private final WorshipRepository worshipRepository;
@@ -22,11 +24,10 @@ public class WorshipServiceImpl implements WorshipService {
     }
 
     @Override
-    public WorshipDto.CreateResDto saveVideoUrl(WorshipDto.CreateReqDto requestDto) {
-        Worship worship = requestDto.toEntity();  // DTO -> Entity 변환
-        worship.setUploadDate(LocalDateTime.now());  // 업로드 날짜 설정
-        Worship savedWorship = worshipRepository.save(worship);  // DB에 저장
-
+    public WorshipDto.CreateResDto create(WorshipDto.CreateReqDto requestDto) {
+        Worship worship = requestDto.toEntity();
+        worship.setUploadDate(LocalDateTime.now());
+        Worship savedWorship = worshipRepository.save(worship);
         WorshipDto.CreateResDto responseDto = new WorshipDto.CreateResDto();
         responseDto.setId(savedWorship.getId());
         return responseDto;
@@ -34,9 +35,12 @@ public class WorshipServiceImpl implements WorshipService {
 
     @Override
     public void update(WorshipDto.UpdateReqDto requestDto) {
-        Worship worship = worshipRepository.findById((requestDto.getId())+"").orElseThrow(() -> new RuntimeException("Worship not found"));
+        Worship worship = worshipRepository.findById((requestDto.getId()+""))
+                .orElseThrow(() -> new RuntimeException("Worship not found"));
+
         worship.setTitle(requestDto.getTitle());
-        worship.setUrl(requestDto.getUrl());
+        worship.setVId(requestDto.getVId());
+
         worshipRepository.save(worship);
     }
 
@@ -47,15 +51,26 @@ public class WorshipServiceImpl implements WorshipService {
 
     @Override
     public WorshipDto.DetailResDto detail(Long id) {
-        Worship worship = worshipRepository.findById(id+"").orElseThrow(() -> new RuntimeException("Worship not found"));
-        return new WorshipDto.DetailResDto(worship);
+        Worship worship = worshipRepository.findById(id+"")
+                .orElseThrow(() -> new RuntimeException("Worship not found"));
+
+        WorshipDto.DetailResDto responseDto = new WorshipDto.DetailResDto();
+        responseDto.setId(worship.getId());
+        responseDto.setTitle(worship.getTitle());
+        responseDto.setVId(worship.getVId());
+        return responseDto;
     }
 
     @Override
-    public List<WorshipDto.DetailResDto> getAllVideos() {
-        List<Worship> videos = worshipRepository.findAll();
-        return videos.stream()
-                .map(WorshipDto.DetailResDto::new)
+    public List<WorshipDto.DetailResDto> list() {
+        return worshipRepository.findAll().stream()
+                .map(worship -> {
+                    WorshipDto.DetailResDto dto = new WorshipDto.DetailResDto();
+                    dto.setId(worship.getId());
+                    dto.setTitle(worship.getTitle());
+                    dto.setVId(worship.getVId());
+                    return dto;
+                })
                 .collect(Collectors.toList());
     }
 }

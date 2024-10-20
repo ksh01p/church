@@ -101,25 +101,30 @@
         .next {
             right: 10px;
         }
+        .logo-img {
+            max-width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
     </style>
 </head>
 <body>
-<a href="index.html">
-    <img src="/images/logo.png" alt="교회 로고">
+<a href="/">
+    <img src="/images/logo.jpg" alt="교회 로고" class="logo-img">
 </a>
 <header>
 
     <nav>
         <ul>
             <li>
-                <a href="/introduction/church">환영합니다</a>
+                <a href="/welcome/introduce">환영합니다</a>
                 <div class="sub-menu">
                     <a href="/welcome/introduce">교회 소개</a>
                     <a href="/welcome/fam_signup">새가족 등록하기</a>
                 </div>
             </li>
             <li>
-<!--                <a onclick="alert(1);">소개합니다</a>-->
+                <a href="/introduction/pastor">소개합니다</a>
                 <div class="sub-menu">
                     <a href="/introduction/pastor">담임 목사님 소개</a>
                     <a href="/introduction/church">교회 오시는 길</a>

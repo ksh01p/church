@@ -9,49 +9,29 @@ import java.time.LocalDateTime;
 @Entity
 public class Worship {
 
+    @Setter
+    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;  // 영상 제목
-    private String url;    // YouTube URL
+    @Setter
+    @Getter
+    private String title;
+    private String vId;
 
-    private LocalDateTime uploadDate;  // 업로드 날짜
+    @Setter
+    @Getter
+    private LocalDateTime uploadDate;
 
-    // Constructors (기본 생성자)
     public Worship() {}
 
-    // Getters and Setters
-    public Long getId() {
-        return id;
+    public String getVId() {
+        return vId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setVId(String vId) {
+        this.vId = vId;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public LocalDateTime getUploadDate() {
-        return uploadDate;
-    }
-
-    public void setUploadDate(LocalDateTime uploadDate) {
-        this.uploadDate = uploadDate;
-    }
 }
-

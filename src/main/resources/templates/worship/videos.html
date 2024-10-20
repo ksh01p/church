@@ -49,10 +49,22 @@
         });
     }
 
+    // YouTube URL에서 v_id 추출
+    function extractVideoId(url) {
+        const urlParams = new URLSearchParams(new URL(url).search);
+        return urlParams.get('v');
+    }
+
     // 영상 업로드
     function upload_video() {
         const title = $("#video_title").val();
         const url = $("#video_url").val();
+        const v_id = extractVideoId(url);
+
+        if (!v_id) {
+            alert("유효한 YouTube URL이 아닙니다.");
+            return;
+        }
 
         $.ajax({
             url: "/api/worship",
@@ -60,7 +72,7 @@
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify({
                 title: title,
-                url: url
+                vId: v_id  // v_id를 서버로 전송
             }),
             success: (response) => {
                 alert("영상이 성공적으로 업로드되었습니다!");
