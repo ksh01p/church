@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>선교 현황</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,7 +12,7 @@
             padding: 0;
         }
         .banner {
-            background-color:lightgrey;
+            background-color: lightgrey;
             color: white;
             text-align: center;
             padding: 1em 0;
@@ -19,26 +20,46 @@
         .container {
             display: flex;
             padding: 20px;
+            flex-wrap: wrap; /* 작은 화면에서는 아래로 쌓이도록 */
         }
         .intro {
             flex: 1;
             padding: 20px;
         }
-        .image {
+        .image-slider {
             flex: 1;
             padding: 20px;
             text-align: center;
+            position: relative;
         }
-        .image img {
+        .image-slider img {
             max-width: 100%;
             height: auto;
+            display: none; /* 모든 이미지를 기본적으로 숨김 */
+        }
+        .image-slider img.active {
+            display: block; /* 활성화된 이미지만 표시 */
+        }
+        .controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+        .controls .arrow {
+            background: none;
+            border: none;
+            font-size: 2em; /* 화살표 크기 조절 */
+            cursor: pointer;
+            color: black; /* 화살표 색상 */
         }
         .logo-img {
             max-width: 100%;
             height: auto;
             object-fit: contain;
         }
-
     </style>
 </head>
 <body>
@@ -46,38 +67,59 @@
     <img src="/images/logo.jpg" alt="교회 로고" class="logo-img">
 </a>
 
-
-
 <div class="container">
     <div class="intro">
         <h2>선교국</h2>
         <p>
-            [중동]
-            레바논 000 선생님
-
-            [아메리카]
-            케나다 000 가정
-
-            [아시아]
-            일본 000 선생님
-
-            [아프리카]
-            말리 000 선생님
-
+            [중동]<br> 레바논 000 선생님 <br><br>
+            [아메리카]<br> 캐나다 000 가정 <br><br>
+            [아시아]<br> 일본 000 선생님 <br><br>
+            [아프리카]<br> 말리 000 선생님
         </p>
+    </div>
 
     <div class="image-slider">
-        <div class="slides">
-            <img src="/images/1.JPG" alt="슬라이드 이미지 1">
-            <img src="/images/2.JPG" alt="슬라이드 이미지 2">
-            <img src="/images/3.JPG" alt="슬라이드 이미지 3">
-            <img src="/images/4.jpg" alt="슬라이드 이미지 4">
-            <img src="/images/5.JPG" alt="슬라이드 이미지 5">
-            <img src="/images/6.JPG" alt="슬라이드 이미지 6">
+        <img src="/images/1.JPG" alt="슬라이드 이미지 1" class="active">
+        <img src="/images/2.JPG" alt="슬라이드 이미지 2">
+        <img src="/images/3.JPG" alt="슬라이드 이미지 3">
+        <img src="/images/4.jpg" alt="슬라이드 이미지 4">
+        <img src="/images/5.JPG" alt="슬라이드 이미지 5">
+        <img src="/images/6.JPG" alt="슬라이드 이미지 6">
 
-            <!--            <img src="image4.jpg" alt="슬라이드 이미지 4">-->
+        <div class="controls">
+            <button class="arrow" id="prev"><i class="fas fa-chevron-left"></i></button>
+            <button class="arrow" id="next"><i class="fas fa-chevron-right"></i></button>
         </div>
+    </div>
 </div>
+
+<script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.image-slider img');
+    const totalSlides = slides.length;
+
+    // 슬라이드를 보여주는 함수
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.classList.remove('active');
+            if (i === index) {
+                slide.classList.add('active');
+            }
+        });
+    }
+
+    // 다음 슬라이드로 이동
+    document.getElementById('next').addEventListener('click', function() {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        showSlide(currentSlide);
+    });
+
+    // 이전 슬라이드로 이동
+    document.getElementById('prev').addEventListener('click', function() {
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+        showSlide(currentSlide);
+    });
+</script>
 
 </body>
 </html>
