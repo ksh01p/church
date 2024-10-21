@@ -18,6 +18,9 @@ public class Worship {
     @Setter
     @Getter
     private String title;
+
+    @Setter
+    @Getter
     private String vId;
 
     @Setter
@@ -26,12 +29,5 @@ public class Worship {
 
     public Worship() {}
 
-    public String getVId() {
-        return vId;
-    }
-
-    public void setVId(String vId) {
-        this.vId = vId;
-    }
 
 }

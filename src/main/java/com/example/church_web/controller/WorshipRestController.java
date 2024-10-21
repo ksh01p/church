@@ -22,6 +22,7 @@ public class WorshipRestController {
 
     @PostMapping("")
     public WorshipDto.CreateResDto create(@RequestBody WorshipDto.CreateReqDto requestDto) {
+        System.out.println(requestDto.getVid() + " => CTRL");
         // 영상 업로드 요청 처리
         return worshipService.create(requestDto);
     }

@@ -25,11 +25,15 @@ public class WorshipServiceImpl implements WorshipService {
 
     @Override
     public WorshipDto.CreateResDto create(WorshipDto.CreateReqDto requestDto) {
+        System.out.println(requestDto.getVid() + "!!!!!!");
         Worship worship = requestDto.toEntity();
+
+        System.out.println(worship.getVId() + "!!!!!!");
+
         worship.setUploadDate(LocalDateTime.now());
-        Worship savedWorship = worshipRepository.save(worship);
+        worship = worshipRepository.save(worship);
         WorshipDto.CreateResDto responseDto = new WorshipDto.CreateResDto();
-        responseDto.setId(savedWorship.getId());
+        responseDto.setId(worship.getId());
         return responseDto;
     }
 

@@ -10,12 +10,12 @@ public class WorshipDto {
     @Getter
     public static class CreateReqDto {
         private String title;
-        private String vId;
+        private String vid;
 
         public Worship toEntity() {
             Worship worship = new Worship();
             worship.setTitle(title);
-            worship.setVId(vId);
+            worship.setVId(vid);
             return worship;
         }
     }
