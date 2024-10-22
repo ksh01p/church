@@ -4,12 +4,128 @@
     <meta charset="UTF-8">
     <title>주일 영상 게시판</title>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
+<style>
+    /* style.css */
+    body {
+        background-color: #ffffff;
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+    h1 {
+        color: #003366;
+        font-size: 36px;
+        margin-top: 20px;
+    }
+
+    h2 {
+        color: #003366;
+        font-size: 28px;
+        margin-top: 20px;
+    }
+
+    .logo-img {
+        width: 150px;
+        margin-top: 10px;
+    }
+
+    .box {
+        border: 1px solid #003366;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px auto;
+        width: 80%;
+        max-width: 600px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+        font-size: 18px;
+        color: #003366;
+    }
+
+    input[type="text"] {
+        width: 80%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #003366;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    button {
+        background-color: #003366;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    button:hover {
+        background-color: #005399;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    ul li {
+        font-size: 18px;
+        color: #003366;
+        margin: 10px 0;
+    }
+
+    ul li a {
+        color: #003366;
+        text-decoration: none;
+    }
+
+    ul li a:hover {
+        text-decoration: underline;
+    }
+
+    hr {
+        border: 0;
+        height: 1px;
+        background-color: #003366;
+        margin: 40px 0;
+    }
+
+    a {
+        display: block;
+        margin: 20px auto;
+        width: 150px;
+    }
+
+    a img {
+        transition: transform 0.3s ease;
+    }
+
+    a img:hover {
+        transform: scale(1.05);
+    }
+    .logo-img {
+        max-width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+
+</style>
 <body>
+<a href="/">
+    <img src="/images/logo.jpg" alt="교회 로고" class="logo-img">
+</a>
 <h1>주일 영상 게시판</h1>
 
-<!-- 영상 업로드 폼 -->
-<div>
+<div class="box">
     <h2>새로운 영상 업로드</h2>
     <label>제목: </label>
     <input type="text" id="video_title" /><br/>
@@ -20,20 +136,18 @@
 
 <hr/>
 
-<!-- 영상 목록 -->
-<div>
+<div class="box">
     <h2>영상 목록</h2>
     <ul id="video_list"></ul>
 </div>
 
 <script>
-    // 영상 목록 불러오기
     function load_videos() {
         $.ajax({
             url: "/api/worship/list",
             type: "GET",
             success: (videos) => {
-                $("#video_list").empty();  // 기존 목록 초기화
+                $("#video_list").empty();
                 videos.forEach((video) => {
                     $("#video_list").append(`
                             <li>
@@ -49,13 +163,11 @@
         });
     }
 
-    // YouTube URL에서 v_id 추출
     function extractVideoId(url) {
         const urlParams = new URLSearchParams(new URL(url).search);
         return urlParams.get('v');
     }
 
-    // 영상 업로드
     function upload_video() {
         const title = $("#video_title").val();
         const url = $("#video_url").val();
@@ -72,11 +184,11 @@
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify({
                 title: title,
-                vid: v_id  // v_id를 서버로 전송
+                vid: v_id
             }),
             success: (response) => {
                 alert("영상이 성공적으로 업로드되었습니다!");
-                load_videos();  // 영상 목록 새로고침
+                load_videos();
             },
             error: (xhr, status, error) => {
                 alert("업로드에 실패했습니다.");
@@ -84,7 +196,6 @@
         });
     }
 
-    // 페이지 로드 시 영상 목록 불러오기
     $(document).ready(function() {
         load_videos();
     });
