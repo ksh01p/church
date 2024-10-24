@@ -57,5 +57,6 @@ public class Application {
         public enum Relationship {
             PARENT, SIBLING, CHILD, SPOUSE, GRANDPARENT, OTHER
         }
+
     }
 }

@@ -8,8 +8,5 @@ import java.util.Map;
 @Service
 public interface WelcomeService {
     Map<String, Object> createWelcome(Map<String, Object> params);
-    Map<String, Object> updateWelcome(Map<String, Object> params);
-    Map<String, Object> deleteWelcome(Integer id);
-    List<Welcome> listWelcome();
-    Welcome detailWelcome(Integer id);
+
 }

@@ -33,11 +33,10 @@ public class Welcome {
     private MarriageType marriageType;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "welcome_id")
-    private List<FamilyMember> familyMembers = new ArrayList<>();
+    @JoinColumn(name ="welcome_id")
+    private List<w_FamilyMember> familyMembers = new ArrayList<>();
 
-    // Add a method to add family members
-    public void addFamilyMember(FamilyMember member) {
+    public void addFamilyMember(w_FamilyMember member) {
         if (familyMembers.size() < 6) {
             familyMembers.add(member);
         } else {
@@ -45,11 +44,10 @@ public class Welcome {
         }
     }
 
-    // FamilyMember class to represent each family member
     @Getter
     @Setter
     @Entity
-    public static class FamilyMember {
+    public static class w_FamilyMember {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Integer memberId; // Unique ID for each family member
@@ -59,5 +57,6 @@ public class Welcome {
         public enum Relationship {
             PARENT, SIBLING, CHILD, SPOUSE, GRANDPARENT, OTHER
         }
+
     }
 }
