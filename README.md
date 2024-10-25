@@ -72,8 +72,6 @@
 - **Database**: MySQL
 - **배포**: CloudType
 
-## 프로젝트 구조
-src/ ├── main/ │ ├── java/com/church │ │ ├── controller/ │ │ ├── service/ │ │ ├── repository/ │ │ └── domain/ │ ├── resources/ │ │ ├── templates/ # HTML 파일들 │ │ └── static/ # CSS, JS 파일들 └── test/
 
 ## 설치 및 실행 방법
 
