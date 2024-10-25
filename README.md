@@ -46,6 +46,10 @@
   - 예배 영상을 유튜브 URL로 삽입하여 iframe을 통해 제공하고 있습니다. 해당 URL은 프론트엔드에서 입력되어 DTO를 통해 Controller, Service, JPA Repository와 연결된 MySQL DB로 저장됩니다. 사용자는 예배 영상을 쉽게 볼 수 있습니다.
 ![image](https://github.com/user-attachments/assets/2af39bf9-3b58-4e54-8364-d1545b7cc6c1)
 
+  - 예배 영상 클릭 시 
+<img width="1440" alt="image" src="https://github.com/user-attachments/assets/db420f5b-721d-4426-8d23-a539f9bd8297">
+
+
 
 ---
 
