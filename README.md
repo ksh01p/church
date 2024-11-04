@@ -10,7 +10,8 @@
 
 ### 0. 관리자 (Admin)
 이 곳은 관리자 페이지입니다. 
-<img width="1440" alt="스크린샷 2024-11-03 오후 10 46 05" src="https://github.com/user-attachments/assets/606b3f51-bafb-40d7-9bca-b6014c4f4ef1">
+<img width="1440" alt="image" src="https://github.com/user-attachments/assets/13694254-6e87-4995-8636-546e0c830d44">
+
 
 
 ### 1. 홈 (Home)
