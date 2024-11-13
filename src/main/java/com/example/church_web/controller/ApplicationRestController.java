@@ -22,7 +22,6 @@ public class ApplicationRestController {
         return applicationService.createApplication(params);
     }
 
-
 }
 
 

@@ -20,6 +20,9 @@ public class ApplicationController {
         return "application/" + page;
     }
 
+
+
+
 }
 
 /*
