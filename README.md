@@ -8,6 +8,12 @@
 
 ## 기능
 
+### 0. 관리자 (Admin)
+이 곳은 관리자 페이지입니다. 
+<img width="1440" alt="image" src="https://github.com/user-attachments/assets/13694254-6e87-4995-8636-546e0c830d44">
+
+
+
 ### 1. 홈 (Home)
 홈 화면은 교회의 첫 인상을 담고 있으며, 환영 메시지와 교회 관련 사진이 표시됩니다.
 ![image](https://github.com/user-attachments/assets/5066602d-10e4-4d6d-816f-d24e57728206)
